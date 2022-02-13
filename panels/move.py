@@ -24,21 +24,39 @@ class MovePanel(ScreenPanel):
 
         grid = Gtk.Grid()
         grid.set_column_homogeneous(True)
+        
+        if self._config.get_config()['main'].getboolean('invert_x'):
+            self.labels['x+'] = self._gtk.ButtonImage("arrow-right", _("X-"), "color1")
+            self.labels['x+'].connect("clicked", self.move, AXIS_X, "+")
+            self.labels['x-'] = self._gtk.ButtonImage("arrow-left", _("X+"), "color1")
+            self.labels['x-'].connect("clicked", self.move, AXIS_X, "-")
+        else:
+            self.labels['x+'] = self._gtk.ButtonImage("arrow-right", _("X+"), "color1")
+            self.labels['x+'].connect("clicked", self.move, AXIS_X, "+")
+            self.labels['x-'] = self._gtk.ButtonImage("arrow-left", _("X-"), "color1")
+            self.labels['x-'].connect("clicked", self.move, AXIS_X, "-")
 
-        self.labels['x+'] = self._gtk.ButtonImage("arrow-right", _("X+"), "color1")
-        self.labels['x+'].connect("clicked", self.move, AXIS_X, "+")
-        self.labels['x-'] = self._gtk.ButtonImage("arrow-left", _("X-"), "color1")
-        self.labels['x-'].connect("clicked", self.move, AXIS_X, "-")
+        if self._config.get_config()['main'].getboolean('invert_y'):
+            self.labels['y+'] = self._gtk.ButtonImage("arrow-up", _("Y-"), "color2")
+            self.labels['y+'].connect("clicked", self.move, AXIS_Y, "+")
+            self.labels['y-'] = self._gtk.ButtonImage("arrow-down", _("Y+"), "color2")
+            self.labels['y-'].connect("clicked", self.move, AXIS_Y, "-")
+        else:
+            self.labels['y+'] = self._gtk.ButtonImage("arrow-up", _("Y+"), "color2")
+            self.labels['y+'].connect("clicked", self.move, AXIS_Y, "+")
+            self.labels['y-'] = self._gtk.ButtonImage("arrow-down", _("Y-"), "color2")
+            self.labels['y-'].connect("clicked", self.move, AXIS_Y, "-")
 
-        self.labels['y+'] = self._gtk.ButtonImage("arrow-up", _("Y+"), "color2")
-        self.labels['y+'].connect("clicked", self.move, AXIS_Y, "+")
-        self.labels['y-'] = self._gtk.ButtonImage("arrow-down", _("Y-"), "color2")
-        self.labels['y-'].connect("clicked", self.move, AXIS_Y, "-")
-
-        self.labels['z+'] = self._gtk.ButtonImage("z-farther", _("Z+"), "color3")
-        self.labels['z+'].connect("clicked", self.move, AXIS_Z, "+")
-        self.labels['z-'] = self._gtk.ButtonImage("z-closer", _("Z-"), "color3")
-        self.labels['z-'].connect("clicked", self.move, AXIS_Z, "-")
+        if self._config.get_config()['main'].getboolean('invert_z'):
+            self.labels['z+'] = self._gtk.ButtonImage("z-farther", _("Z-"), "color3")
+            self.labels['z+'].connect("clicked", self.move, AXIS_Z, "+")
+            self.labels['z-'] = self._gtk.ButtonImage("z-closer", _("Z+"), "color3")
+            self.labels['z-'].connect("clicked", self.move, AXIS_Z, "-")
+        else:
+            self.labels['z+'] = self._gtk.ButtonImage("z-farther", _("Z+"), "color3")
+            self.labels['z+'].connect("clicked", self.move, AXIS_Z, "+")
+            self.labels['z-'] = self._gtk.ButtonImage("z-closer", _("Z-"), "color3")
+            self.labels['z-'].connect("clicked", self.move, AXIS_Z, "-")
 
         self.labels['home'] = self._gtk.ButtonImage("home", _("Home All"), "color4")
         self.labels['home'].connect("clicked", self.home)
